@@ -1,0 +1,44 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Global COVID-19 Death Cases",
+  "width": 800,
+  "height": 600,
+  "data": {
+    "url": "https://raw.githubusercontent.com/JinEnTan/vega_lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.NAME",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/JinEnTan/vega-lite-homework-w9/master/Dataset/covid_19_data.csv"
+        },
+        "key": "Country",
+        "fields": ["Deaths", "Population"]
+      }
+    },
+    {
+      "calculate": "datum.Deaths/datum.Population * 100000",
+      "as": "Death Cases per 100000 people"
+    }
+  ],
+  "projection": {"type": "equirectangular"},
+  "mark": {"type": "geoshape"},
+  "encoding": {
+    "color": {
+      "field": "Death Cases per 100000 people",
+      "type": "quantitative",
+      "scale": {
+        "type": "threshold",
+        "domain": [1, 10, 100],
+        "range": ["#fdbe85", "#fd8d3c", "#e6550d", "#a63603"]
+      }
+    },
+    "tooltip": [
+      {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+      {"field": "Deaths", "type": "quantitative"}
+    ]
+  },
+  "config": {}
+}

@@ -16,8 +16,7 @@
           "data": {
             "url": "https://raw.githubusercontent.com/JinEnTan/vega-lite-homework-w9/Dataset/master.csv"
           },
-          "key": "country",
-          "fields": ["suicides/100k pop"]
+          "key": "country"
         }
       }
     ],
@@ -29,9 +28,8 @@
       },
     "encoding": {
       "color": {
-        "field": "Active Cases",
-        "type": "quantitative",
-        "scale": {"type": "log"}
+        "field": "suicide rate",
+        "type": "quantitative"
       },
       "tooltip": [
         {"field": "properties.NAME", "type": "nominal", "title": "Country"},
